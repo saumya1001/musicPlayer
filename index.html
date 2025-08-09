@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #D1C6F3, #E9BCAC);
+        }
+        .container {
+               position: relative;
+    width: 25rem;
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+        }
+        .inside {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.5s;
+        }
+
+        .outside {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.5s;
+        }
+        .inside {
+            /* left: 50%; */
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .cd {
+            height: 20rem;
+            width: 20rem;
+            background-color: black;
+            border-radius: 100%;
+            position: relative;
+            transition: box-shadow 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .circle {
+            height: 30%;
+            width: 30%;
+            border-radius: 100%;
+            background: linear-gradient(135deg, #D1C6F3, #E9BCAC);
+        }
+        .cd.spinning {
+            animation: spin 3s linear infinite;
+            box-shadow: 0 0 30px 5px #fff6;
+        }
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .outside {
+            left: 0;
+            z-index: 2;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .container.open .outside {
+            transform: translateX(-100%);
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        #lyrics {
+          display:block;
+          margin-top:5rem;
+          font-family: "Rajdhani", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+            font-size: 1.5rem;
+          color: white;
+        
+        }
+        textPath{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .Msginvisible{
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-top:8rem;
+            visibility: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+        }
+        .Msgvisible{
+            visibility: visible;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+   0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+        .blink {
+            
+            animation: blink 2s linear infinite;
+        }
+        #instruction{
+            font-family: 'Petit Formal Script', cursive;
+            font-size: 5rem;
+            color: #333;
+            margin-bottom: 3rem;
+            margin-top:5rem;
+        }
+
+        footer{
+            font-family: 'Petit Formal Script', cursive;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="instruction" class="blink">Click on the record</div>
+    <div class="container" id="container">
+        <div class="outside"></div>
+        <div class="inside">
+            <div class="cd" id="cd">
+                <svg width="20rem" height="20rem" viewBox="0 0 320 320" style="position:absolute; top:0; left:0; pointer-events:none;">
+  <defs>
+    <path id="curve" d="M 160,160 m -120,0 a 120,120 0 1,1 240,0 a 120,120 0 1,1 -240,0" />
+  </defs>
+  <text font-size="24" font-family="sans-serif" fill="#fff" letter-spacing="2">
+    <textPath xlink:href="#curve" startOffset="0">
+Lag jaa gale &#10084;&#65039;
+    </textPath>
+  </text>
+</svg>
+
+                <div class="circle"></div>
+            </div>
+            <audio id="player" src="Lag Jaa Gale - Sadhana, Lata Mangeshkar, Woh Kaun Thi Romantic Song.mp3"></audio>
+        </div>
+        <p id="lyrics" lang="hi"></p>
+    </div>
+    <div class="Msginvisible">
+        <p>I came across a keyring shaped like a record that could play a song using NFC. Since I wasn’t sure how to send it to you in Germany, I decided to do what I do best instead.<span style="font-size:2rem;">🫂</span> </p>
+    </div>
+
+    
+
+    
+    <script>
+        const container = document.getElementById('container');
+        const cd = document.getElementById('cd');
+        const audio = document.getElementById('player');
+        const lyrics = document.getElementById('lyrics');
+        const msg = document.querySelector('.Msginvisible');
+        const instruction = document.getElementById('instruction');
+        let isOpen = false;
+
+        container.addEventListener('click', () => {
+            isOpen = !isOpen;
+            container.classList.toggle('open', isOpen);
+
+            if (isOpen) {
+                cd.classList.add('spinning');
+                audio.play();
+                lyrics.textContent = "लग जा गले कि फिर ये हसीं रात हो न हो...";
+                msg.classList.add('Msgvisible');
+                instruction.classList.remove('blink');
+                instruction.innerHTML = '<span class="blink" style="font-size:5rem;">✨</span> I Miss You Alot <span class="blink" style="font-size:5rem;">✨</span>';
+            } else {
+                cd.classList.remove('spinning');
+                audio.pause();
+                lyrics.textContent = "";
+            }
+        });
+    </script>
+</body>
+<footer>
+        <p style="color:white">Made with love <span style="font-size:2rem;">&#10084;&#65039;</span></p>
+</footer>
+</html>
