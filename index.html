@@ -112,6 +112,7 @@
         }
         textPath{
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            visibility:hidden;
         }
 
         .Msginvisible{
@@ -174,7 +175,7 @@
     <path id="curve" d="M 160,160 m -120,0 a 120,120 0 1,1 240,0 a 120,120 0 1,1 -240,0" />
   </defs>
   <text font-size="24" font-family="sans-serif" fill="#fff" letter-spacing="2">
-    <textPath xlink:href="#curve" startOffset="0">
+    <textPath id="textpath" xlink:href="#curve" startOffset="0">
 Lag jaa gale &#10084;&#65039;
     </textPath>
   </text>
@@ -200,6 +201,7 @@ Lag jaa gale &#10084;&#65039;
         const lyrics = document.getElementById('lyrics');
         const msg = document.querySelector('.Msginvisible');
         const instruction = document.getElementById('instruction');
+        const textpath=document.getElementById('textpath');
         let isOpen = false;
 
         container.addEventListener('click', () => {
@@ -213,6 +215,7 @@ Lag jaa gale &#10084;&#65039;
                 msg.classList.add('Msgvisible');
                 instruction.classList.remove('blink');
                 instruction.innerHTML = '<span class="blink" style="font-size:5rem;">✨</span> I Miss You Alot <span class="blink" style="font-size:5rem;">✨</span>';
+                textpath.classList.add('Msgvisible');
             } else {
                 cd.classList.remove('spinning');
                 audio.pause();
@@ -225,3 +228,4 @@ Lag jaa gale &#10084;&#65039;
         <p style="color:white">Made with love <span style="font-size:2rem;">&#10084;&#65039;</span></p>
 </footer>
 </html>
+
